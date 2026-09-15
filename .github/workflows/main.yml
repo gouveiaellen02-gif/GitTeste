@@ -1,0 +1,45 @@
+name: Workflow
+ 
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch para executar o workflow"
+        required: true
+        default: "main"
+        type: string
+ 
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+ 
+      - name: Executar Job 1
+        run: |
+          echo "Executando Job 1"
+ 
+  job2:
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+ 
+      - name: Executar Job 2
+        run: |
+          echo "Executando Job 2"
+ 
+      - name: Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+ 
+          git add .
+          git commit -m "chore: atualização automática" || echo "Nada para commit"
+          git push
