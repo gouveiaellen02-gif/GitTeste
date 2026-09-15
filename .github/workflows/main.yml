@@ -8,7 +8,8 @@ on:
         required: true
         default: "main"
         type: string
-permissions: write-all
+permissions:
+  contents: write
  
 jobs:
   job1:
