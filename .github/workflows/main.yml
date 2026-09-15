@@ -8,6 +8,7 @@ on:
         required: true
         default: "main"
         type: string
+permissions: write-all
  
 jobs:
   job1:
